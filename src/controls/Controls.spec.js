@@ -4,23 +4,24 @@ import {render, fireEvent} from '@testing-library/react';
 
 import Controls from './Controls';
 
-test('cannot be closed/opened if locked', () => {
+//toggle closed and locked states
+test('cannot be closed or opened if locked', () => {
   const toggle = jest.fn();
   const { getByText } = render(<Controls locked={true} closed={true} toggle={toggle} />);
   const openGate = getByText(/open gate/i);
   fireEvent.click(openGate);
   expect(toggle).not.toHaveBeenCalled();
+  
 });
 
-
-test('provide buttons to toggle `closed` and `locked` states', () => {
+test('provide buttons to toggle the `closed` and `locked` states', () => {
   const { getAllByText } = render(<Controls />);
   const buttons = getAllByText(/gate/i);
   expect(buttons).toBeDefined();
 });
 
-
-test('buttons text changes to reflect state door will be if clicked', () => {
+// button text changes to reflect the state the door will be in if clicked
+test('buttons text changes to reflect the state the door will be in if clicked', () => {
   let mockState = {
     locked: false,
     closed: false
@@ -40,8 +41,8 @@ test('buttons text changes to reflect state door will be if clicked', () => {
   expect(toggleLock.textContent).toBe("Lock Gate");
 });
 
-
-test('closed toggle button disabled if gate locked', () => {
+//closed toggle button disabled if gate locked
+test('the closed toggle button is disabled if the gate is locked', () => {
   const toggleClosed = jest.fn();
   const { getByText } = render(<Controls
     locked= {true}
@@ -52,7 +53,8 @@ test('closed toggle button disabled if gate locked', () => {
   expect(toggleClosed).not.toHaveBeenCalled();
 });
 
-test('locked toggle button disabled if gate open', () => {
+//locked toggle button disabled if gate open
+test('the locked toggle button is disabled if the gate is open', () => {
   const toggleLocked = jest.fn();
   const { getByText } = render(<Controls
     closed = {false}
